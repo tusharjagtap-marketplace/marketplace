@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: http://${PROD_AUTH_HOST:auth-service-prod}:9000
+          predicates:
+            - Path=/api/auth/**
+        - id: marketplace-service
+          uri: http://${PROD_MARKETPLACE_HOST:marketplace-service-prod}:8081
+          predicates:
+            - Path=/api/test/**
+        - id: payment-service
+          uri: http://${PROD_PAYMENT_HOST:payment-service-prod}:8082
+          predicates:
+            - Path=/api/payment/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
+  endpoint:
+    health:
+      show-details: never
