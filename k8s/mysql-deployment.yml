@@ -7,12 +7,12 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 20Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql-db
+  name: mysql
 spec:
   replicas: 1
   selector:
@@ -28,9 +28,9 @@ spec:
           image: mysql:8.0
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: "root"
+              value: "Ajinkyahb2026"
             - name: MYSQL_DATABASE
-              value: "marketplace_db"
+              value: "marketplacedb_dev"
           ports:
             - containerPort: 3306
               name: mysql

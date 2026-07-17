@@ -4,9 +4,9 @@ metadata:
   name: microservices-config
 data:
   spring.profiles.active: "dev" # Deployment environment defaults to dev
-  db.host: "mysql-db"
+  db.host: "marketplacedb-dev.cvoiyseiupjx.ap-south-1.rds.amazonaws.com"
   db.port: "3306"
-  db.name: "marketplace_db"
+  db.name: "marketplacedb_dev"
   auth.service.host: "auth-service"
   marketplace.service.host: "marketplace-service"
   payment.service.host: "payment-service"
