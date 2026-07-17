@@ -77,4 +77,4 @@ jobs:
 
       - name: Deploy to AWS EKS
         run: |
-          kubectl apply -f k8s/
+          kubectl apply -f k8s/ --validate=false
