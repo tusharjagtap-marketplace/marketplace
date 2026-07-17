@@ -69,10 +69,10 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          sed -i "s|image: auth-service:latest|$ECR_REGISTRY/auth-service:$IMAGE_TAG|g" k8s/auth-service.yml
-          sed -i "s|image: gateway-service:latest|$ECR_REGISTRY/gateway-service:$IMAGE_TAG|g" k8s/gateway-service.yml
-          sed -i "s|image: marketplace-service:latest|$ECR_REGISTRY/marketplace-service:$IMAGE_TAG|g" k8s/marketplace-service.yml
-          sed -i "s|image: payment-service:latest|$ECR_REGISTRY/payment-service:$IMAGE_TAG|g" k8s/payment-service.yml
+          sed -i "s|image: auth-service:latest|image: $ECR_REGISTRY/auth-service:$IMAGE_TAG|g" k8s/auth-service.yml
+          sed -i "s|image: gateway-service:latest|image: $ECR_REGISTRY/gateway-service:$IMAGE_TAG|g" k8s/gateway-service.yml
+          sed -i "s|image: marketplace-service:latest|image: $ECR_REGISTRY/marketplace-service:$IMAGE_TAG|g" k8s/marketplace-service.yml
+          sed -i "s|image: payment-service:latest|image: $ECR_REGISTRY/payment-service:$IMAGE_TAG|g" k8s/payment-service.yml
 
       - name: Deploy to AWS EKS
         run: |
