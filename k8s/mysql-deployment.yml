@@ -30,7 +30,7 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               value: "Ajinkyahb2026"
             - name: MYSQL_DATABASE
-              value: "marketplacedb_dev"
+              value: "marketplacedb-dev"
           ports:
             - containerPort: 3306
               name: mysql
