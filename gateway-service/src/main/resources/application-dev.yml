@@ -4,7 +4,6 @@ server:
 spring:
   application:
     name: gateway-service
-
   cloud:
     gateway:
       routes:
@@ -49,3 +48,7 @@ management:
   endpoint:
     health:
       show-details: always
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
