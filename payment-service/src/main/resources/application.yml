@@ -1,5 +1,3 @@
 spring:
   application:
     name: payment-service
-  profiles:
-    active: local

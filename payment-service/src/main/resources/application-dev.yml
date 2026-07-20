@@ -6,7 +6,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://${DEV_AUTH_HOST:localhost}:9000/api/auth/jwks
+          jwk-set-uri: http://auth-service:9000/api/auth/jwks
 
 management:
   endpoints:
