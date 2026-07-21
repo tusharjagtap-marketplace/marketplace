@@ -7,6 +7,8 @@ on:
       - dev
     paths:
       - 'payment-service/**'
+      - 'k8s/payment-service.yml'
+      - 'k8s/configmap.yml'
       - '.github/workflows/deploy-payment.yml'
 
 jobs:

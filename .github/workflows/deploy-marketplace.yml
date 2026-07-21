@@ -7,6 +7,8 @@ on:
       - dev
     paths:
       - 'marketplace-service/**'
+      - 'k8s/marketplace-service.yml'
+      - 'k8s/configmap.yml'
       - '.github/workflows/deploy-marketplace.yml'
 
 jobs:
