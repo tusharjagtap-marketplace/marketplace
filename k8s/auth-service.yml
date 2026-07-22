@@ -45,6 +45,18 @@ spec:
               value: "admin"
             - name: SPRING_DATASOURCE_PASSWORD
               value: "Ajinkyahb2026"
+            - name: AWS_SNS_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-sns-secret
+                  key: aws.sns.accessKey
+                  optional: true
+            - name: AWS_SNS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-sns-secret
+                  key: aws.sns.secretKey
+                  optional: true
 ---
 apiVersion: v1
 kind: Service

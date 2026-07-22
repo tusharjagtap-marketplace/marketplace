@@ -14,6 +14,12 @@ public class OtpService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private SmsService smsService;
+
+    @Autowired
+    private EmailService emailService;
+
     private final SecureRandom random = new SecureRandom();
 
     public String generateAndSaveOtp(User user) {
@@ -27,10 +33,25 @@ public class OtpService {
         
         userRepository.save(user);
 
-        // In a real application, you would invoke an SMS service here.
-        // For testing, we log it to console.
+        // 1. Send SMS to the user
+        try {
+            smsService.sendSms(user.getMobileNumber(), "Your marketplace verification OTP is: " + otp + ". Valid for 5 minutes.");
+        } catch (Exception e) {
+            System.err.println("ERROR: Failed to send SMS OTP via gateway: " + e.getMessage());
+        }
+
+        // 2. Send Email to the user
+        try {
+            String subject = "Marketplace OTP Verification";
+            String body = "Hello,\n\nYour Marketplace verification OTP is: " + otp + "\nThis OTP is valid for 5 minutes.\n\nThank you!";
+            emailService.sendEmail(user.getEmail(), subject, body);
+        } catch (Exception e) {
+            System.err.println("ERROR: Failed to send Email OTP: " + e.getMessage());
+        }
+
         System.out.println("=================================================");
-        System.out.printf("OTP generated for mobile %s: %s (Expires in 5 mins)%n", user.getMobileNumber(), otp);
+        System.out.printf("OTP generated for mobile %s and email %s: %s (Expires in 5 mins)%n", 
+                user.getMobileNumber(), user.getEmail(), otp);
         System.out.println("=================================================");
 
         return otp;

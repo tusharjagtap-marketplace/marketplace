@@ -3,3 +3,8 @@ spring:
     name: auth-service
   profiles:
     active: dev
+
+aws:
+  sns:
+    enabled: false
+    region: ap-south-1

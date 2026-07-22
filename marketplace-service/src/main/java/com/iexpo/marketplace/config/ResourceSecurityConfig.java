@@ -17,6 +17,7 @@ public class ResourceSecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/actuator", "/actuator/**").permitAll()
+                .requestMatchers("/api/test/ai/**").permitAll()
                 .requestMatchers("/api/test/secured").authenticated()
                 .anyRequest().authenticated()
             )

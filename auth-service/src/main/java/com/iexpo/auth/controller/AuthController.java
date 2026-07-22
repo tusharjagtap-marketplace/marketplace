@@ -81,12 +81,10 @@ public class AuthController {
         }
 
         User user = userOpt.get();
-        String otp = otpService.generateAndSaveOtp(user);
+        otpService.generateAndSaveOtp(user);
 
-        // Returning OTP in body and response code for easy verification
         return ResponseEntity.ok(Map.of(
-                "message", "OTP generated and sent successfully (logged in console)",
-                "otp", otp, // Returning here simplifies testing.
+                "message", "OTP generated and sent successfully via SMS",
                 "mobileNumber", request.getMobileNumber()
         ));
     }

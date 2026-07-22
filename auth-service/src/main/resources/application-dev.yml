@@ -20,3 +20,13 @@ management:
   endpoint:
     health:
       show-details: always
+
+aws:
+  sns:
+    enabled: true
+    region: ap-south-1
+    accessKey: ${AWS_SNS_ACCESS_KEY}
+    secretKey: ${AWS_SNS_SECRET_KEY}
+  ses:
+    enabled: true
+    fromAddress: otp@shetshivar.shivswaraj.in

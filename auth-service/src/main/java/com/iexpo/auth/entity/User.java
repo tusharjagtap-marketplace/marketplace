@@ -30,7 +30,16 @@ public class User {
     private String mobileNumber;
 
     @Column(name = "is_mobile_verified")
-    private boolean isMobileVerified;
+    @Builder.Default
+    private Boolean isMobileVerified = false;
+
+    public boolean isMobileVerified() {
+        return isMobileVerified != null && isMobileVerified;
+    }
+
+    public void setMobileVerified(boolean mobileVerified) {
+        this.isMobileVerified = mobileVerified;
+    }
 
     private String otp;
 
