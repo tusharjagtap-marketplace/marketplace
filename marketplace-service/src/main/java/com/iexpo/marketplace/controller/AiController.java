@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -135,5 +137,41 @@ public class AiController {
             response.put("error", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
+    }
+
+    @PostMapping("/movies/recommends")
+    public ResponseEntity<Map<String, Object>> recommends (@RequestParam String type , @RequestParam String year ,
+                                                           @RequestParam String lang,
+                                                           @RequestParam(value = "conversationId", defaultValue = "default") String conversationId) {
+
+
+        String temp = """
+                I want to watch a {type} movie tonight with good rating,
+                Looking for movies around this year {year}
+                The language i am looking for is {lang}.
+                Suggest one specific movie and tell me cast and length of the movie.
+                """;
+        PromptTemplate promptTemplate = new PromptTemplate(temp);
+        Prompt prompt = promptTemplate.create(Map.of("type", type,  "year", year, "lang", lang));
+        Map<String, Object> response = new HashMap<>();
+        response.put("provider", "Google Gemini");
+        response.put("prompt", prompt);
+        response.put("conversationId", conversationId);
+        log.info("Gemini Claude  movies/recommends ...........................");
+        try {
+            String result = googleGenAiChatClient.prompt(prompt)
+                    .advisors(a -> a.param("chat_memory_conversation_id", conversationId))
+                    .call()
+                    .content();
+            response.put("status", "success");
+            response.put("response", result);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            response.put("status", "error");
+            response.put("message", "Failed to get response from Google Gemini. Ensure GOOGLE_GENAI_API_KEY is configured and valid.");
+            response.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+
     }
 }
