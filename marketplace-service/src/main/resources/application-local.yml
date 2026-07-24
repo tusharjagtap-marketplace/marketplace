@@ -19,6 +19,10 @@ spring:
     anthropic:
       api-key: ${ANTHROPIC_API_KEY}
 
+    ollama:
+      chat:
+        options:
+          model: minimax-m3:cloud
 management:
   endpoints:
     web:
